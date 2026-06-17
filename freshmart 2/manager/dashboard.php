@@ -39,7 +39,13 @@ $flash = getFlash();
                 FreshMart Manager
             </a>
             <ul class="sidebar-nav">
-                <li><a href="dashboard.php" class="active">📊 Reports</a></li>
+                <li><a href="dashboard.php" class="active">📊 Dashboard</a></li>
+                <li><a href="products.php">🥦 Products</a></li>
+                <li><a href="categories.php">📁 Categories</a></li>
+                <li><a href="orders.php">📦 Orders</a></li>
+                <li><a href="users.php">👤 Users</a></li>
+                <li><a href="staff.php">🛠️ Staff</a></li>
+                <li><a href="feedback.php">💬 Feedback</a></li>
                 <li><a href="../pages/logout.php">🚪 Logout</a></li>
             </ul>
         </aside>
@@ -106,12 +112,18 @@ $flash = getFlash();
                                 <tr><th>Product</th><th>Stock</th></tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($lowStock as $product): ?>
+                                <?php if (empty($lowStock)): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($product['product_name']); ?></td>
-                                    <td><span class="status-badge status-cancelled"><?php echo $product['stock_quantity']; ?></span></td>
+                                    <td colspan="2" style="text-align: center; color: #888;">No low stock products</td>
                                 </tr>
-                                <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php foreach ($lowStock as $product): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($product['product_name']); ?></td>
+                                        <td><span class="status-badge status-cancelled"><?php echo $product['stock_quantity']; ?></span></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

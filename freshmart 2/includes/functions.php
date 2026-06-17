@@ -247,8 +247,8 @@ function getTopProducts($limit = 5) {
     $stmt = $pdo->prepare("SELECT p.product_name, SUM(oi.quantity) as total_sold, SUM(oi.subtotal) as total_revenue 
                           FROM order_items oi 
                           JOIN products p ON oi.product_id = p.product_id 
-                          GROUP BY oi.product_id ORDER BY total_sold DESC LIMIT ?");
-    $stmt->execute([$limit]);
+                          GROUP BY oi.product_id ORDER BY total_sold DESC LIMIT " . (int)$limit);
+    $stmt->execute();
     return $stmt->fetchAll();
 }
 
